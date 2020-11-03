@@ -1,0 +1,69 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage{caption}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\title{Consensus Algorithm}
+\author{Frederic Laudarin}
+\date{November 1, 2020}
+\maketitle
+
+\section{Framework}
+
+This document exposes an algorithm for decision making within a group. It is supported by the framework where:
+\begin{itemize}
+\item There is a finite set of alternatives an
+\item The size of the group is finite
+\item Each member of the group must rank every alternatives
+\item Several alternatives may have the same rank
+\end{itemize}
+Once the ranking is carried out by every member. The algorithm must provide a set of alternative which is optimal in regard of all the individual ranks made in the group.
+
+The base principle of the algorithm is for each member to assign payoffs to alternatives depending on their ranking and to sum the payoffs of every alternative from every player. The alternatives having the best payoff over the group constitute the optimal set of alternatives.
+
+\section{Algorithm}
+
+Let $\Omega=\{A_i\}_{i=1}^N$ denote the set of $N\in\mathbb{N}^*$ alternatives. The ranking assigned to the alternative $A_i$ by a group's member $(m)$ is noted $r_i^{(m)}$. In the context of a member $(m)$ the alternatives are classified by ranking values in classes $\{\mathcal{C}_k^{(m)}\}_{k=1}^{K^{(m)}}$ with $K^{(m)}\in\mathbb{N}^*$. The rank of every alternative in the class $\mathcal{C}_k^{(m)}$ is obviously $k$, the preferred rank being $k=1$. The cardinality of a class $\mathcal{C}_k^{(m)}$ is $\mathrm{card}(\mathcal{C}_k^{(m)}) = N_k^{(m)}$ so that:
+\begin{equation}
+\sum_{k=1}^{K^{(m)}}{N_k^{(m)}} = N
+\end{equation}
+For the sake of readability, the upper index $(m)$ will be avoided in the following, the notations previously introduced will implicitly refer to a member $(m)$.
+
+Each class $\mathcal{C}_k$ has a frequency $f_k$:
+\begin{equation}
+f_k = \frac{N_k}{N}
+\end{equation}
+As shown in the set of pairs $\{(k,f_k), k=1..K\}$ can be considered as a probability distribution as:
+\begin{equation}
+\sum_{k=1}^K{f_k} = 1
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{distribution.png}
+\caption{Distribution of alternatives}
+\label{fig:distribution}  
+\end{figure}
+The payoff $v_k$ assigned to alternatives in class $\mathcal{C}_k$ is defined as the probability of getting an alternative $A_i\in\Omega$ such as $A_i\in\mathcal{C}_{k'}$ with $k'>k$:
+\begin{equation}
+v_k = v\left(A_i\in\mathcal{C}_k\right)=\mathrm{Pr}\left(\left\lbrace A_i\in\mathcal{C}_{k'}, k'>k\right\rbrace\right)=\sum_{k'>k}{f_k}
+\end{equation}
+This is the payoff value $v^{(m)}(A_i)$ of the member $(m)$ for the alternative $A_i$.
+As a consequence, an alternative being in the last class $\mathcal{C}_K$ has a payoff of 0. If a member of the group has no preference then they classify all the alternatives in one unique class $\mathcal{C}_1$ and every alternative is assigned a zero payoff value.
+
+Eventually the payoff value of an alternative to the group is the sum of values assigned by each member:
+\begin{equation}
+v\left(A_i\right)=\sum_{m}{v^{(m)}(A_i)}
+\end{equation}
+
+
+\end{document}
