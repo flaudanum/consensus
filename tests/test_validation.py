@@ -28,7 +28,7 @@ def test_main_scenario():
     group.new_member('Manon')
     group.new_member('Martin')
 
-    assert Alternative.get_names() == sorted([name.lower() for name in alternative_names])
+    assert Alternative.get_names() == set([name.lower() for name in alternative_names])
     assert Member.get_names() == {'manon', 'martin'}
 
     group.members['Manon'].make_ranking(

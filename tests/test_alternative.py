@@ -13,6 +13,7 @@ def test_create_alternative():
     assert alternative.description == 'This is Kid A'
 
     assert Alternative.get_names() == {'kid a'}
+    del alternative
 
 
 def test_cannot_create_two_alternatives_with_same_name():

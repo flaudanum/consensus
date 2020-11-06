@@ -1,9 +1,12 @@
+from copy import deepcopy
+
+
 class Alternative:
     __names = set()
 
     @staticmethod
     def get_names():
-        return sorted(Alternative.__names)
+        return deepcopy(Alternative.__names)
 
     @property
     def name(self):

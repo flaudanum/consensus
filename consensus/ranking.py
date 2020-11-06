@@ -28,3 +28,7 @@ class Ranking:
 
         iter_set = self._iter_sets.pop(0)
         return [self._alternatives_by_name[alt_name] for alt_name in iter_set]
+
+    def __str__(self):
+        tuples = [tuple(item) for item in self._sets]
+        return str(tuple(tuples))
