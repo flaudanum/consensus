@@ -1,18 +1,23 @@
+import pandas as pd
+
 from consensus.alternative import Alternative
 from consensus.group import Group
 from consensus.member import Member
 from consensus.payoff import payoff
+from consensus.pd_payoff_table import pd_payoff_table
 
 
 def test_main_scenario():
     alternatives = []
 
     # Defines alternatives
-    for name in ('A', 'B', 'C', 'D', 'E', 'F', 'G'):
+    alternative_names = {"Australia", "California US", "Costa Rica", "Germany", "Hungary", "Japan", "Thailand", "UK",
+                         "Venezuela"}
+    for name in alternative_names:
         alternatives.append(
             Alternative(
                 name=name,
-                description=f"Validation test 'main scenarion': alternative '{name}'"
+                description=f"Destination for holidays is {name}."
             )
         )
 
@@ -20,30 +25,49 @@ def test_main_scenario():
     group = Group(alternatives)
 
     # Adds members to the group
-    group.new_member('Marie')
-    group.new_member('Pierre')
+    group.new_member('Manon')
+    group.new_member('Martin')
 
-    assert Alternative.get_names() == {'a', 'b', 'c', 'd', 'e', 'f', 'g'}
-    assert Member.get_names() == {'marie', 'pierre'}
+    assert Alternative.get_names() == sorted([name.lower() for name in alternative_names])
+    assert Member.get_names() == {'manon', 'martin'}
 
-    group.members['Marie'].make_ranking(
+    group.members['Manon'].make_ranking(
         alternatives,
         ranking=[
-            ['G', ],
-            ['A', 'B'],
-            ['C', 'E', 'F'],
-            ['D']
+            ["Thailand", "Venezuela"],
+            ["Australia", "Costa Rica"],
+            ["Hungary"],
+            ["California US", "Germany", "UK"],
+            ["Japan"]
         ]
     )
 
-    group.members['Pierre'].make_ranking(
+    group.members['Martin'].make_ranking(
         alternatives,
         ranking=[
-            ['A', 'C', 'E'],
-            ['B'],
-            ['D', 'F', 'G']
+            ["Japan", "Germany", "Hungary"],
+            ["Australia", "California US"],
+            ["UK", "Thailand", "Venezuela", "Costa Rica"]
         ]
     )
 
     payoff_values = payoff(group)
-    print(payoff_values)
+
+    reference = pd.DataFrame.from_dict({
+        'Hungary': {'Manon': 0.4444444444444444, 'Martin': 0.6666666666666666, 'payoff': 1.1111111111111112},
+        'Australia': {'Manon': 0.5555555555555556, 'Martin': 0.4444444444444444, 'payoff': 1.0},
+        'Thailand': {'Manon': 0.7777777777777778, 'Martin': 0.0, 'payoff': 0.7777777777777778},
+        'Venezuela': {'Manon': 0.7777777777777778, 'Martin': 0.0, 'payoff': 0.7777777777777778},
+        'Germany': {'Manon': 0.1111111111111111, 'Martin': 0.6666666666666666, 'payoff': 0.7777777777777777},
+        'Japan': {'Manon': 0.0, 'Martin': 0.6666666666666666, 'payoff': 0.6666666666666666},
+        'California US': {'Manon': 0.1111111111111111, 'Martin': 0.4444444444444444,
+                          'payoff': 0.5555555555555556},
+        'Costa Rica': {'Manon': 0.5555555555555556, 'Martin': 0.0, 'payoff': 0.5555555555555556},
+        'UK': {'Manon': 0.1111111111111111, 'Martin': 0.0, 'payoff': 0.1111111111111111}
+    }, orient="index")
+
+    pd.testing.assert_frame_equal(
+        reference,
+        pd_payoff_table(payoff_values, group),
+    )
+

@@ -51,7 +51,7 @@ As shown in the set of pairs $\{(k,f_k), k=1..K\}$ can be considered as a probab
 \centering
 \includegraphics[scale=0.6]{distribution.png}
 \caption{Distribution of alternatives}
-\label{fig:distribution}  
+\label{fig:distribution}
 \end{figure}
 The payoff $v_k$ assigned to alternatives in class $\mathcal{C}_k$ is defined as the probability of getting an alternative $A_i\in\Omega$ such as $A_i\in\mathcal{C}_{k'}$ with $k'>k$:
 \begin{equation}
@@ -61,9 +61,133 @@ This is the payoff value $v^{(m)}(A_i)$ of the member $(m)$ for the alternative 
 As a consequence, an alternative being in the last class $\mathcal{C}_K$ has a payoff of 0. If a member of the group has no preference then they classify all the alternatives in one unique class $\mathcal{C}_1$ and every alternative is assigned a zero payoff value.
 
 Eventually the payoff value of an alternative to the group is the sum of values assigned by each member:
-\begin{equation}
+\begin{equation}\label{eq_alternatives_payoff}
 v\left(A_i\right)=\sum_{m}{v^{(m)}(A_i)}
 \end{equation}
 
+\section{Example}
+
+The group is composed of two persons namely Manon and Martin. They must choose they need to decide on the location of their summer holidays. They consider the following alternatives:
+\begin{itemize}
+\item Australia
+\item California US
+\item Costa Rica
+\item Germany
+\item Hungary
+\item Japan
+\item Thailand
+\item UK
+\item Venezuela
+\end{itemize}
+
+\subsection{Ranking of alternatives}
+Manon makes the following ranking:
+
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Rank}&\textbf{Alternatives}\\
+\hline
+1 & Thailand, Venezuela \\
+2 & Australia, Costa Rica \\
+3 & Hungary \\
+4 & California US, Germany, UK \\
+5 & Japan \\
+\hline
+\end{tabular}
+
+and Martin this one:
+
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Rank}&\textbf{Alternatives}\\
+\hline
+1 & Japan, Germany, Hungary \\
+2 & Australia, California US \\
+3 & UK, Thailand, Venezuela, Costa Rica \\
+\hline
+\end{tabular}
+
+\subsection{Classes}
+
+The alternatives are classified by ranking for each member of the group. The frequency of each class is calculated.
+
+For \textsl{Manon}:
+
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Class}&\textbf{Frequency} &\textbf{Alternatives}\\
+$\mathcal{C}_k$ & $f_k$ & $A_i$ \\
+\hline
+$\mathcal{C}_1$ & $2/9$ & Thailand, Venezuela \\
+$\mathcal{C}_2$ & $2/9$ & Australia, Costa Rica \\
+$\mathcal{C}_3$ & $1/9$ & Hungary \\
+$\mathcal{C}_4$ & $1/3$ & California US, Germany, UK \\
+$\mathcal{C}_5$ & $1/9$ & Japan \\
+\hline
+\end{tabular}
+
+For \textsl{Martin}:
+
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Class}&\textbf{Frequency} &\textbf{Alternatives}\\
+$\mathcal{C}_k$ & $f_k$ & $A_i$ \\
+\hline
+$\mathcal{C}_1$ & $1/3$ & Japan, Germany, Hungary \\
+$\mathcal{C}_2$ & $2/9$ & Australia, California US \\
+$\mathcal{C}_3$ & $4/9$ & UK, Thailand, Venezuela, Costa Rica \\
+\hline
+\end{tabular}
+
+\subsection{Payoff}
+
+The following table gives the payoff values of Manon's ranking classes:
+
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Class}&\textbf{Frequency} &\textbf{Payoff}\\
+$\mathcal{C}_k$ & $f_k$ & $v_k$ \\
+\hline
+$\mathcal{C}_1$ & $2/9$ & 7/9 \\
+$\mathcal{C}_2$ & $2/9$ & 5/9 \\
+$\mathcal{C}_3$ & $1/9$ & 4/9 \\
+$\mathcal{C}_4$ & $1/3$ & 1/9 \\
+$\mathcal{C}_5$ & $1/9$ & 0 \\
+\hline
+\end{tabular}
+
+And this one the payoff values of Martin's ranking classes:
+
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Class}&\textbf{Frequency} &\textbf{Payoff}\\
+$\mathcal{C}_k$ & $f_k$ & $v_k$ \\
+\hline
+$\mathcal{C}_1$ & $1/3$ & 2/3  \\
+$\mathcal{C}_2$ & $2/9$ & 4/9 \\
+$\mathcal{C}_3$ & $4/9$ & 0 \\
+\hline
+\end{tabular}
+
+Now the payoff value of alternatives for Manon and Martin can be combined as in equation (\ref{eq_alternatives_payoff}):
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Alternative}&\textbf{Manon}&\textbf{Martin}&\textbf{Payoff}\\
+$A_i$ & $v^{\mathrm{Manon}}(A_i)$ & $v^{\mathrm{Martin}}(A_i)$ & $v(A_i)$ \\
+\hline
+Hungary & $4/9$ & $2/3$ & $10/9$ \\
+Australia & $5/9$ & $4/9$ & $1.$ \\
+Thailand & $7/9$ & $0$ & $7/9$ \\
+Venezuela & $7/9$ & $0$ & $7/9$ \\
+Germany & $1/9$ & $2/3$ & $7/9$ \\
+Japan & $0$ & $2/3$ & $2/3$ \\
+California US & $1/9$ & $4/9$ & $5/9$ \\
+Costa Rica & $5/9$ & $0$ & $5/9$ \\
+UK & $1/9$ & $0$ & $1/9$ \\
+\hline
+\end{tabular}
+
+The payoff is maximal for \textbf{Hungary} which achieves the consensus.
 
 \end{document}

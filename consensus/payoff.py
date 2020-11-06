@@ -16,7 +16,7 @@ def payoff(group: Group):
     payoff_by_member_name = {}
     payoff_global = []
 
-    for name, member in group.members.items():
+    for name, member in sorted(group.members.items(), key=lambda pair: pair[0]):
         payoff_by_member_name[name] = []
         ranked_classes = []
 
@@ -38,8 +38,8 @@ def payoff(group: Group):
         class_payoff = 0.
         for rk_class in reversed(ranked_classes):
             rk_class.payoff = class_payoff
-            class_payoff += rk_class.frequency
             payoff_by_member_name[name] += [(alt, class_payoff) for alt in rk_class.alternatives]
+            class_payoff += rk_class.frequency
 
     for alt in group.alternatives:
         alt_payoff_values = [
@@ -47,6 +47,6 @@ def payoff(group: Group):
             for member_name in group.members
         ]
         payoff_global.append(
-            (alt, sum(alt_payoff_values))
+            [alt] + alt_payoff_values + [sum(alt_payoff_values)]
         )
-    return sorted(payoff_global, key=lambda pair: pair[1], reverse=True)
+    return sorted(payoff_global, key=lambda row: row[-1], reverse=True)
