@@ -1,6 +1,6 @@
 import pytest
 
-from consensus.alternative import Alternative
+from consensus.entities.alternative import Alternative
 
 
 def test_create_alternative():

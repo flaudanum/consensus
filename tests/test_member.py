@@ -1,8 +1,8 @@
 import pytest
 
-from consensus.alternative import Alternative
-from consensus.member import Member
-from consensus.ranking import Ranking
+from consensus.entities.alternative import Alternative
+from consensus.entities.member import Member
+from consensus.entities.ranking import Ranking
 
 
 def test_create_alternative():
@@ -10,6 +10,7 @@ def test_create_alternative():
 
     assert member.name == 'Friedrich'
     assert Member.get_names() == {'friedrich'}
+
 
 def test_cannot_create_two_alternatives_with_same_name():
     """
@@ -24,6 +25,7 @@ def test_cannot_create_two_alternatives_with_same_name():
         excinfo.match(f"A member with name '{name}' already exists")
 
     del _
+
 
 def test_specify_ranking():
     member = Member(name='Friedrich')

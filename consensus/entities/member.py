@@ -1,12 +1,11 @@
 from copy import deepcopy
 from typing import Sequence, Union
 
-from consensus.alternative import Alternative
-from consensus.ranking import Ranking
+from consensus.entities.alternative import Alternative
+from consensus.entities.ranking import Ranking
 
 
 class Member:
-
     __names = set()
 
     @staticmethod

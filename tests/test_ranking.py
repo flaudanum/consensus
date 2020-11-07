@@ -1,5 +1,5 @@
-from consensus.alternative import Alternative
-from consensus.ranking import Ranking
+from consensus.entities.alternative import Alternative
+from consensus.entities.ranking import Ranking
 
 
 def test_iter_over_ranking():

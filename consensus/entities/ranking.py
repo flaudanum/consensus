@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from consensus.alternative import Alternative
+from consensus.entities.alternative import Alternative
 
 
 class Ranking:

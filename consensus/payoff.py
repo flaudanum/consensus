@@ -1,6 +1,4 @@
-from collections import namedtuple
-
-from consensus.group import Group
+from consensus.entities.group import Group
 
 
 class RankedClass:

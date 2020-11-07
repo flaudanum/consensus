@@ -1,8 +1,8 @@
 import pandas as pd
 
-from consensus.alternative import Alternative
-from consensus.group import Group
-from consensus.member import Member
+from consensus.entities.alternative import Alternative
+from consensus.entities.group import Group
+from consensus.entities.member import Member
 from consensus.payoff import payoff
 from consensus.pd_payoff_table import pd_payoff_table
 
@@ -70,4 +70,3 @@ def test_main_scenario():
         reference,
         pd_payoff_table(payoff_values, group),
     )
-

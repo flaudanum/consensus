@@ -1,7 +1,7 @@
 import pandas as pd
 
-from consensus.alternative import Alternative
-from consensus.group import Group
+from consensus.entities.alternative import Alternative
+from consensus.entities.group import Group
 
 
 def pd_payoff_table(payoff_result: list[list], group: Group):

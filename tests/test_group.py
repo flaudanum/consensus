@@ -1,5 +1,5 @@
-from consensus.alternative import Alternative
-from consensus.group import Group
+from consensus.entities.alternative import Alternative
+from consensus.entities.group import Group
 
 
 def test_create_group_and_add_member():

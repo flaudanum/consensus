@@ -1,5 +1,5 @@
-from consensus.alternative import Alternative
-from consensus.member import Member
+from consensus.entities.alternative import Alternative
+from consensus.entities.member import Member
 
 
 class Group:
