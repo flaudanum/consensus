@@ -1,5 +1,3 @@
-import pytest
-
 from consensus.entities.alternative import Alternative
 
 
@@ -12,25 +10,25 @@ def test_create_alternative():
     assert alternative.name == 'Kid A'
     assert alternative.description == 'This is Kid A'
 
-    assert Alternative.get_names() == {'kid a'}
-    del alternative
 
-
-def test_cannot_create_two_alternatives_with_same_name():
-    """
-    Cannot creat two alternatives w/ the same name (not case sensitive)
-    """
-    # This object would be garbage cleaned w/o this dummy assignment
-    _ = Alternative(
-        name="Kid A",
-        description="This is Kid A"
+def test_serialize():
+    alternative = Alternative(
+        name="Hailing to the thief",
+        description="Smooth and dark"
     )
 
-    for name in ("Kid A", "kid a", "KID A"):
-        with pytest.raises(ValueError) as excinfo:
-            Alternative(
-                name,
-                description="This Kid A's clone shall not exist"
-            )
+    assert alternative.serialize() == {
+        "name": "Hailing to the thief",
+        "description": "Smooth and dark"
+    }
 
-        excinfo.match(f"An alternative with name '{name}' already exists")
+
+def test_load_from_serialization():
+    serialization = {
+        "name": "Hailing to the thief",
+        "description": "Smooth and dark"
+    }
+    alternative = Alternative.load(serialization)
+
+    assert alternative.name == "Hailing to the thief"
+    assert alternative.description == "Smooth and dark"

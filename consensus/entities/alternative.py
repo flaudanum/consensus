@@ -1,12 +1,4 @@
-from copy import deepcopy
-
-
 class Alternative:
-    __names = set()
-
-    @staticmethod
-    def get_names():
-        return deepcopy(Alternative.__names)
 
     @property
     def name(self):
@@ -21,14 +13,18 @@ class Alternative:
         self._description = value
 
     def __init__(self, name: str, description: str = ""):
-        # Checks if the name is already used
-        if name.lower() in Alternative.__names:
-            raise ValueError(f"An alternative with name '{name}' already exists")
-        else:
-            Alternative.__names.add(name.lower())
         self._name = name
         self._description = description
 
-    def __del__(self):
-        if hasattr(self, '_name'):
-            Alternative.__names.remove(self._name.lower())
+    def serialize(self):
+        return {
+            "name": self._name,
+            "description": self._description
+        }
+
+    @staticmethod
+    def load(serialization: dict):
+        return Alternative(
+            name=serialization["name"],
+            description=serialization["description"]
+        )

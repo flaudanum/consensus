@@ -1,0 +1,2 @@
+class PayoffError(Exception):
+    pass

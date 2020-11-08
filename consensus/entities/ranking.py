@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Sequence
 
 from consensus.entities.alternative import Alternative
@@ -5,13 +6,16 @@ from consensus.entities.alternative import Alternative
 
 class Ranking:
 
-    def __init__(self, alternatives: Sequence[Alternative], sets):
-        self._alternatives = alternatives
+    @property
+    def sets(self):
+        return deepcopy(self._sets)
+
+    def __init__(self, alternatives: Sequence[Alternative], sets: Sequence[Sequence[str]]):
         self._sets = sets
 
         # Register alternatives by name
         self._alternatives_by_name = {}
-        for alt in self._alternatives:
+        for alt in alternatives:
             self._alternatives_by_name[alt.name] = alt
 
         # For iterations
