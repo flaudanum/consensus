@@ -30,7 +30,7 @@ Once the ranking is carried out by every member. The algorithm must provide a se
 
 The base principle of the algorithm is for each member to assign payoffs to alternatives depending on their ranking and to sum the payoffs of every alternative from every player. The alternatives having the best payoff over the group constitute the optimal set of alternatives.
 
-\section{Algorithm}
+\section{Basic algorithm}
 
 Let $\Omega=\{A_i\}_{i=1}^N$ denote the set of $N\in\mathbb{N}^*$ alternatives. The ranking assigned to the alternative $A_i$ by a group's member $(m)$ is noted $r_i^{(m)}$. In the context of a member $(m)$ the alternatives are classified by ranking values in classes $\{\mathcal{C}_k^{(m)}\}_{k=1}^{K^{(m)}}$ with $K^{(m)}\in\mathbb{N}^*$. The rank of every alternative in the class $\mathcal{C}_k^{(m)}$ is obviously $k$, the preferred rank being $k=1$. The cardinality of a class $\mathcal{C}_k^{(m)}$ is $\mathrm{card}(\mathcal{C}_k^{(m)}) = N_k^{(m)}$ so that:
 \begin{equation}
@@ -43,7 +43,7 @@ Each class $\mathcal{C}_k$ has a frequency $f_k$:
 f_k = \frac{N_k}{N}
 \end{equation}
 As shown in the set of pairs $\{(k,f_k), k=1..K\}$ can be considered as a probability distribution as:
-\begin{equation}
+\begin{equation}\label{eq_sum_frequencies}
 \sum_{k=1}^K{f_k} = 1
 \end{equation}
 
@@ -53,9 +53,9 @@ As shown in the set of pairs $\{(k,f_k), k=1..K\}$ can be considered as a probab
 \caption{Distribution of alternatives}
 \label{fig:distribution}
 \end{figure}
-The payoff $v_k$ assigned to alternatives in class $\mathcal{C}_k$ is defined as the probability of getting an alternative $A_i\in\Omega$ such as $A_i\in\mathcal{C}_{k'}$ with $k'>k$:
-\begin{equation}
-v_k = v\left(A_i\in\mathcal{C}_k\right)=\mathrm{Pr}\left(\left\lbrace A_i\in\mathcal{C}_{k'}, k'>k\right\rbrace\right)=\sum_{k'>k}{f_k}
+The payoff $v_k$ assigned to alternatives in class $\mathcal{C}_k$ is defined as the probability of getting an alternative $A_i\in\Omega$ such as $A_i\in\mathcal{C}_l$ with $l>k$:
+\begin{equation}\label{eq_member_payoff}
+v_l = v\left(A_i\in\mathcal{C}_l\right)=\mathrm{Pr}\left(\left\lbrace A_i\in\mathcal{C}_l, l>k\right\rbrace\right)=\sum_{l>k}{f_l}
 \end{equation}
 This is the payoff value $v^{(m)}(A_i)$ of the member $(m)$ for the alternative $A_i$.
 As a consequence, an alternative being in the last class $\mathcal{C}_K$ has a payoff of 0. If a member of the group has no preference then they classify all the alternatives in one unique class $\mathcal{C}_1$ and every alternative is assigned a zero payoff value.
@@ -65,7 +65,7 @@ Eventually the payoff value of an alternative to the group is the sum of values 
 v\left(A_i\right)=\sum_{m}{v^{(m)}(A_i)}
 \end{equation}
 
-\section{Example}
+\section{Basic algorithm - Example}
 
 The group is composed of two persons namely Manon and Martin. They must choose they need to decide on the location of their summer holidays. They consider the following alternatives:
 \begin{itemize}
@@ -82,7 +82,8 @@ The group is composed of two persons namely Manon and Martin. They must choose t
 
 \subsection{Ranking of alternatives}
 Manon makes the following ranking:
-
+\begin{table}[h]
+\centering
 \begin{tabular}{|c|l|}
 \hline
 \textbf{Rank}&\textbf{Alternatives}\\
@@ -94,9 +95,13 @@ Manon makes the following ranking:
 5 & Japan \\
 \hline
 \end{tabular}
+\end{table}
+
 
 and Martin this one:
 
+\begin{table}[h]
+\centering
 \begin{tabular}{|c|l|}
 \hline
 \textbf{Rank}&\textbf{Alternatives}\\
@@ -106,6 +111,7 @@ and Martin this one:
 3 & UK, Thailand, Venezuela, Costa Rica \\
 \hline
 \end{tabular}
+\end{table}
 
 \subsection{Classes}
 
@@ -113,6 +119,8 @@ The alternatives are classified by ranking for each member of the group. The fre
 
 For \textsl{Manon}:
 
+\begin{table}[h]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{Class}&\textbf{Frequency} &\textbf{Alternatives}\\
@@ -125,9 +133,12 @@ $\mathcal{C}_4$ & $1/3$ & California US, Germany, UK \\
 $\mathcal{C}_5$ & $1/9$ & Japan \\
 \hline
 \end{tabular}
+\end{table}
 
+\clearpage
 For \textsl{Martin}:
-
+\begin{table}[ht]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{Class}&\textbf{Frequency} &\textbf{Alternatives}\\
@@ -138,11 +149,14 @@ $\mathcal{C}_2$ & $2/9$ & Australia, California US \\
 $\mathcal{C}_3$ & $4/9$ & UK, Thailand, Venezuela, Costa Rica \\
 \hline
 \end{tabular}
+\end{table}
 
 \subsection{Payoff}
 
 The following table gives the payoff values of Manon's ranking classes:
 
+\begin{table}[ht]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{Class}&\textbf{Frequency} &\textbf{Payoff}\\
@@ -155,9 +169,12 @@ $\mathcal{C}_4$ & $1/3$ & 1/9 \\
 $\mathcal{C}_5$ & $1/9$ & 0 \\
 \hline
 \end{tabular}
+\end{table}
 
 And this one the payoff values of Martin's ranking classes:
 
+\begin{table}[ht]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{Class}&\textbf{Frequency} &\textbf{Payoff}\\
@@ -168,9 +185,12 @@ $\mathcal{C}_2$ & $2/9$ & 4/9 \\
 $\mathcal{C}_3$ & $4/9$ & 0 \\
 \hline
 \end{tabular}
+\end{table}
 
+\clearpage
 Now the payoff value of alternatives for Manon and Martin can be combined as in equation (\ref{eq_alternatives_payoff}):
-
+\begin{table}[ht]
+\centering
 \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{Alternative}&\textbf{Manon}&\textbf{Martin}&\textbf{Payoff}\\
@@ -187,7 +207,163 @@ Costa Rica & $5/9$ & $0$ & $5/9$ \\
 UK & $1/9$ & $0$ & $1/9$ \\
 \hline
 \end{tabular}
+\end{table}
 
 The payoff is maximal for \textbf{Hungary} which achieves the consensus.
+
+\section{Algorithm with scaling}\label{section_algorithm_with_scaling}
+
+Now, in some cases ranking the alternatives with mere ordering is not fully representative of the perception of members in the group. A member may have a greater comparative preference between two classes of alternatives. The following scale of preference is used:
+\begin{itemize}
+\item moderate
+\item strong
+\item very strong
+\item extreme
+\end{itemize}
+The \textsl{moderate} preference is the equivalent of the hierarchy induced by the \textsl{basic algorithm}. The \textbf{intensity} of comparison is based on that scale with a integer value $I_c\in[0..3]$. The moderate intensity value is $I_c=0$ and the extreme is $I_c=3$.
+
+A comparison with a higher intensity than moderate adds a dummy class between the two compared classes. The frequency of this dummy class increases with the intensity.
+
+A member of the group made a ranking $\left\lbrace\mathcal{C}_k, k=1..K\right\rbrace$. Equation (\ref{eq_member_payoff}) gives the difference of payoff value between two successive classes with:
+\begin{equation}
+v_k-v_{k+1} = f_{k+1}>0,\ \forall k\in[1..K-1]
+\end{equation}
+This relation assumes that the group's member shows a \textsl{moderate} preference between every consecutive pair of classes which they ranked. Now if the \textsl{intensity} of this preference is higher between two classes $\mathcal{C}_k$ and $\mathcal{C}_{k+1}$, the difference expressed by the previous equation must be increased. The additional term is noted $\varphi_{k,k+1}>0$ so that the relation becomes:
+\begin{equation}
+v_k-v_{k+1} = f_{k+1} + \varphi_{k,k+1}
+\end{equation}
+As stated before if the preference is \textsl{moderate} ($I_c=0$) then $\varphi_{k,k+1}=0$. Here, the additional term is modeled as proportional to the frequency $f_{k+1}$:
+\begin{equation}\label{eq_add_term}
+\begin{split}
+&\varphi_{k,k+1} = \left(a\left(I_c\right)-1\right)f_{k+1} \\
+\mathrm{with}\ &a\left(I_c\right) \geq 1,\ \forall I_c\in[0..3] \\
+\mathrm{and}\ &a(0)=1
+\end{split}
+\end{equation}
+As a consequence:
+\begin{equation}
+v_k-v_{k+1} = a\left(I_c\right) f_{k+1}
+\end{equation}
+The \textsl{extreme preference} ratio is noted $a_\mathrm{ext} = a(3)$. This value is subjective and could be for instance set to 10. The intermediate values $a(1)$ and $a(2)$ are calculated from $a_\mathrm{ext}$ assuming the following expression:
+\begin{equation}\label{eq_intensity_ratio}
+a\left(I_c\right) = \exp(\alpha I_c)
+\end{equation}
+Using a power law for modeling the intensity of human feeling is not a new idea. Coefficient $\alpha$ can be determined from $a_\mathrm{ext} = a(3) = e^{3\alpha}$:
+\begin{equation}\label{eq_intensity_exponent}
+\alpha = \frac13\ln(a_\mathrm{ext})
+\end{equation}
+The integration of the intensities of preferences gives the following expression of payoff for a class $\mathcal{C}_l,$ with $l<K$ :
+\begin{equation}
+v_l = \sum_{k>l}{f_k} + \sum_{l\leq k<K}{\varphi_{k,k+1}}
+\end{equation}
+This expression is not valid as is because members in the group would not provide payoff on the same scale. The payoff values would completely loss their objectivity and members providing rankings with higher intensities in comparison would see their opinion prevail over the group. This overrating stems from that the sum of class frequencies is 1. (see equation (\ref{eq_sum_frequencies})) but:
+\begin{equation}
+ S = \sum_{k=1}^K{f_k} + \sum_{k=1}^{K-1}{\varphi_{k,k+1}} = 1 + \sum_{k=1}^{K-1}{\varphi_{k,k+1}} \geq 1
+\end{equation}
+Once the values of intensity terms $\varphi_{k,k+1}$ are determined the actual payoff value is computed by applying the corrective ratio $1/S$:
+\begin{equation}\label{eq_scaled_payoff_with_intensities}
+v_l = \frac1S \left( \sum_{k>l}{f_k} + \sum_{l\leq k<K}{\varphi_{k,k+1}} \right)
+\end{equation}
+
+\section{Application case with scaling}
+
+\subsection{Reference with moderate preferences}
+There are 8 alternatives \textit{A}, \textit{B}, \textit{C}, \textit{D}, \textit{E}, \textit{F}, \textit{G}, \textit{H}. A member of the group makes the following ranking:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Class}&\textbf{Frequency} &\textbf{Alternatives}\\
+$\mathcal{C}_k$ & $f_k$ & $A_i$ \\
+\hline
+$\mathcal{C}_1$ & 1/4  & \textit{A}, \textit{B} \\
+$\mathcal{C}_2$ & 3/8  & \textit{C}, \textit{D}, \textit{E} \\
+$\mathcal{C}_3$ & 1/8  & \textit{F} \\
+$\mathcal{C}_1$ & 1/4  & \textit{G}, \textit{H} \\
+\hline
+\end{tabular}
+\end{table}
+
+The payoff with the basic approach where every comparison of classes is associated with a moderate preference is:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Class}&\textbf{payoff} &\textbf{Alternatives}\\
+$\mathcal{C}_k$ & $v_k$ & $A_i$ \\
+\hline
+$\mathcal{C}_1$ & 3/4  & \textit{A}, \textit{B} \\
+$\mathcal{C}_2$ & 3/8  & \textit{C}, \textit{D}, \textit{E} \\
+$\mathcal{C}_3$ & 1/4  & \textit{F} \\
+$\mathcal{C}_4$ & 0  & \textit{G}, \textit{H} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Preferences with variable intensities}
+
+Now, the member specifies intensities $I_c$ in the preferences between the class of alternatives:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Classes}&\textbf{Prefetence}\\
+$\mathcal{C}_k$ / $\mathcal{C}_{k+1}$ & $I_c(k)$ \\
+\hline
+$\mathcal{C}_1$ / $\mathcal{C}_2$ & very strong, $I_c(1)=2$ \\
+$\mathcal{C}_2$ / $\mathcal{C}_3$ & moderate, $I_c(2)=0$ \\
+$\mathcal{C}_3$ / $\mathcal{C}_4$ & strong, $I_c(3)=1$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The payoff of class $\mathcal{C}_4$ is unchanged and remains zero. The preference of class $\mathcal{C}_3$ over $\mathcal{C}_4$ is \textsl{strong}. The additional term reflecting this intensity is given by equations (\ref{eq_add_term}), (\ref{eq_intensity_ratio}) and (\ref{eq_intensity_exponent}) with an \textsl{extreme} ratio $a_\mathrm{ext}$:
+\begin{equation}
+\varphi_{3,4} = \left(a\left(1\right)-1\right)f_4 = \left(\exp(\frac13\ln(10)\times1)-1\right)\frac14\approx0.2886
+\end{equation}
+The preference of class $\mathcal{C}_2$ over $\mathcal{C}_3$ is \textsl{moderate} so there is no additional term ($\varphi_{2,3}=0$).
+The payoff of class $\mathcal{C}_4$ is unchanged and remains zero. The preference of class $\mathcal{C}_3$ over $\mathcal{C}_4$ is \textsl{very strong}:
+\begin{equation}
+\varphi_{1,2} = \left(a\left(2\right)-1\right)f_2 = \left(\exp(\frac13\ln(10)\times2)-1\right)\frac38\approx1.3656
+\end{equation}
+
+\subsection{Payoff}
+
+As stated in section \ref{section_algorithm_with_scaling} the less preferred class has a payoff of 0, then $v_4=0$. For the other classes, the equation (\ref{eq_scaled_payoff_with_intensities}) applies. The scaling ratio is $S$ is:
+\begin{equation}
+1 + \varphi_{1,2} + \varphi_{3,4} \approx 2.6542
+\end{equation}
+The payoff value of class $\mathcal{C}_3$ is:
+\begin{equation}
+v_3 = \frac1S \left( f_4 + \varphi_{3,4} \right) \approx 0.2029
+\end{equation}
+The payoff value of class $\mathcal{C}_2$ is:
+\begin{equation}
+v_2 = \frac1S \left( f_3 + f_4 + 0 + \varphi_{3,4}  \right)\approx 0.2500
+\end{equation}
+Eventually the payoff value of class $\mathcal{C}_2$ is:
+\begin{equation}
+v_1 = \frac1S \left(f_2 + f_3 + f_4 + \varphi_{1,0} + 0 + \varphi_{3,4}  \right)\approx 0.9058
+\end{equation}
+
+The table bellow compares the payoff with the \textsl{base algorithm} and with preferences with increased intensities:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Class}&\textbf{payoff (base)}&\textbf{payoff (base)} &\textbf{Alternatives}\\
+$\mathcal{C}_k$ & $v_k$ & $v_k$ & $A_i$ \\
+\hline
+$\mathcal{C}_1$ & 0.75 & 0.906 & \textit{A}, \textit{B} \\
+$\mathcal{C}_2$ & 0.375 & 0.250 & \textit{C}, \textit{D}, \textit{E} \\
+$\mathcal{C}_3$ & 0.25 & 0.203 & \textit{F} \\
+$\mathcal{C}_4$ & 0 & 0. & \textit{G}, \textit{H} \\
+\hline
+\end{tabular}
+\end{table}
 
 \end{document}
