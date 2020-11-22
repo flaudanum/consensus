@@ -1,9 +1,11 @@
+from math import exp, log
 import pandas as pd
 
 from consensus.entities.ranking_process import RankingProcess
+from consensus.entities.ranking import Preference
 
 
-def test_main_scenario():
+def test_base_method_main_scenario():
     # -------------------- R A N K I N G   P R O C E S S --------------------
 
     rk_process = RankingProcess()
@@ -71,6 +73,83 @@ def test_main_scenario():
                           "total": 0.5555555555555556},
         "Costa Rica": {"Manon": 0.5555555555555556, "Martin": 0.0, "total": 0.5555555555555556},
         "UK": {"Manon": 0.1111111111111111, "Martin": 0.0, "total": 0.1111111111111111}
+    }, orient="index")
+
+    pd.testing.assert_frame_equal(reference, payoff_table)
+
+
+def test_method_with_comparison_intensity():
+    # -------------------- R A N K I N G   P R O C E S S --------------------
+
+    rk_process = RankingProcess()
+
+    # Defines alternatives
+    alternative_names = ("A", "B", "C", "D", "E", "F", "G", "H")
+    for name in alternative_names:
+        rk_process.new_alternative(
+            name=name,
+            description=f"Alternative '{name}'"
+        )
+
+    # Adds members to the group
+    rk_process.new_member("Grace")
+    rk_process.new_member("Barbara")
+
+    rk_process.make_ranking("Grace", [
+        ["A", "B"],
+        ["C", "D", "E"],
+        ["F"],
+        ["G", "H"]
+    ])
+
+    rk_process.make_ranking(
+        "Barbara",
+        [
+            ["A", "B"],
+            ["C", "D", "E"],
+            ["F"],
+            ["G", "H"]
+        ],
+        [
+            Preference.VERY_STRONG,
+            Preference.MODERATE,
+            Preference.STRONG
+        ]
+    )
+
+    payoff_table = rk_process.payoff()
+
+    # -------------------- A S S E R T I O N S --------------------
+
+    assert rk_process.get_ranking("Grace") == [
+        ["A", "B"],
+        ["C", "D", "E"],
+        ["F"],
+        ["G", "H"]
+    ]
+    assert rk_process.get_ranking("Barbara") == [
+        ["A", "B"],
+        ["C", "D", "E"],
+        ["F"],
+        ["G", "H"]
+    ]
+
+    # Reference values for Barbara's comparisons with variable intensities
+    scaling = 1 + (exp(1 / 3 * log(10)) - 1) * 1 / 4 + (exp(1 / 3 * log(10) * 2) - 1) * 3 / 8
+    c1_pf = (3 / 8 + 1 / 8 + 1 / 4 + (exp(1 / 3 * log(10) * 2) - 1) * 3 / 8 + (
+                exp(1 / 3 * log(10)) - 1) * 1 / 4) / scaling
+    c2_pf = (1 / 8 + 1 / 4 + (exp(1 / 3 * log(10)) - 1) * 1 / 4) / scaling
+    c3_pf = (1 / 4 + (exp(1 / 3 * log(10)) - 1) * 1 / 4) / scaling
+
+    reference = pd.DataFrame.from_dict({
+        "A": {"Grace": 0.75, "Barbara": c1_pf, "total": 0.75 + c1_pf},
+        "B": {"Grace": 0.75, "Barbara": c1_pf, "total": 0.75 + c1_pf},
+        "C": {"Grace": 0.375, "Barbara": c2_pf, "total": 0.375 + c2_pf},
+        "D": {"Grace": 0.375, "Barbara": c2_pf, "total": 0.375 + c2_pf},
+        "E": {"Grace": 0.375, "Barbara": c2_pf, "total": 0.375 + c2_pf},
+        "F": {"Grace": 0.25, "Barbara": c3_pf, "total": 0.25 + c3_pf},
+        "G": {"Grace": 0, "Barbara": 0, "total": 0},
+        "H": {"Grace": 0, "Barbara": 0, "total": 0},
     }, orient="index")
 
     pd.testing.assert_frame_equal(reference, payoff_table)

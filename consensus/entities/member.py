@@ -10,12 +10,12 @@ class Member:
         return self._name
 
     @property
-    def ranking(self):
+    def ranking(self) -> Ranking:
         return self._ranking
 
     def __init__(self, name: str):
         self._name = name
         self._ranking: Optional[Ranking] = None
 
-    def make_ranking(self, alternatives: Sequence[Alternative], ranking: Sequence[Sequence[str]]):
-        self._ranking = Ranking(alternatives, ranking)
+    def make_ranking(self, alternatives: Sequence[Alternative], ranking: Sequence[Sequence[str]], intensities=()):
+        self._ranking = Ranking(alternatives, ranking, intensities)
