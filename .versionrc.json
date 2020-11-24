@@ -1,0 +1,15 @@
+{
+  "header": "CHANGELOG",
+  "types": [
+    {"type": "feat", "section": "⚙️ Features"},
+    {"type": "fix", "section": "\uD83E\uDEB2 Bug Fixes"},
+    {"type": "doc", "section": "\uD83D\uDCD6 Documentation"},
+    {"type": "chore", "hidden": true},
+    {"type": "style", "hidden": true},
+    {"type": "refactoring", "hidden": true},
+    {"type": "refactor", "hidden": true},
+    {"type": "refact", "hidden": true},
+    {"type": "perf", "hidden": true},
+    {"type": "test", "hidden": true}
+]
+}
