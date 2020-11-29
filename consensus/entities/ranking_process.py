@@ -71,7 +71,7 @@ class RankingProcess:
             intensities=intensities
         )
 
-    def payoff(self):
+    def payoff(self, ratio_a_ext=10.):
         # ----- Checking prerequisites -----
         # There is at least two members
         if len(self._members) < 2:
@@ -96,6 +96,6 @@ class RankingProcess:
         if algo == 'base':
             return compute_payoff(self._alternatives, self._members)
         elif algo == 'intensities':
-            return compute_payoff_with_intensities(self._alternatives, self._members)
+            return compute_payoff_with_intensities(self._alternatives, self._members, ratio_a_ext)
         else:
             raise ValueError(f"Unknown algorithm: '{algo}'")
